@@ -1,5 +1,5 @@
 import click
-from autosqla.manager import AutoSQLA
+from autosqla.main import AutoSQLA
 
 engines = ['sqlite', 'mysql', 'postgres']
 
@@ -13,6 +13,8 @@ dialect+driver://username:password@host:port/database
 
 Connection string""" % db_url_doc
 
+# postgresql://user:password@postgres/base
+# python autosqla.py generate_model --dburl postgresql://user:password@postgres/base
 
 @click.group()
 def cli():
@@ -25,7 +27,7 @@ def generate_model(db_url):
     """Generate SQLAlchemy model file from the database provided"""
     
     manager = AutoSQLA(db_url)
-    manager.print()
+    print(manager.make_source())
 
 
 if __name__ == '__main__':
